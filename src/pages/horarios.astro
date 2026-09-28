@@ -1,0 +1,39 @@
+---
+import AgendaMovil from '@/components/horarios/AgendaMovil.astro';
+import AgendaTabla from '@/components/horarios/AgendaTabla.astro';
+import { COLOR_BAILE, nombreBaile } from '@/components/horarios/colores';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getClases } from '@/lib/clases';
+
+const clases = await getClases();
+---
+
+<BaseLayout
+  title="Horarios"
+  description="Consulta el horario semanal de salsa, bachata, breakdance, zumba y kizomba y prueba tu primera clase gratis."
+>
+  <Breadcrumbs items={[{ label: 'Horarios', href: '/horarios' }]} />
+  <Section>
+    <Container>
+      <h1 class="text-4xl font-extrabold">Horarios de clases</h1>
+      <ul class="mt-6 flex flex-wrap gap-3" aria-label="Leyenda de colores">
+        {Object.entries(COLOR_BAILE).map(([baile, color]) => (
+          <li class:list={['rounded-full px-4 py-1 font-semibold text-noche', color]}>
+            {nombreBaile(baile)}
+          </li>
+        ))}
+      </ul>
+      <div class="mt-8">
+        <AgendaTabla clases={clases} />
+        <AgendaMovil clases={clases} />
+      </div>
+      <Button href="/reservar" class="mt-10">
+        Reservar clase gratis
+      </Button>
+    </Container>
+  </Section>
+</BaseLayout>

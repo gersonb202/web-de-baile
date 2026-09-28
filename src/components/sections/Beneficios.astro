@@ -1,0 +1,52 @@
+---
+import Card from '@/components/ui/Card.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+
+const beneficios = [
+  {
+    icono: '💪',
+    titulo: 'Físico',
+    texto: 'Mejora tu forma, tu coordinación y tu resistencia sin darte cuenta.',
+  },
+  {
+    icono: '🧘',
+    titulo: 'Mental',
+    texto: 'Desconecta del estrés y libera tensiones al ritmo de la música.',
+  },
+  {
+    icono: '🤝',
+    titulo: 'Social',
+    texto: 'Conoce gente nueva y haz amigos en un ambiente cercano.',
+  },
+  {
+    icono: '🧠',
+    titulo: 'Cognitivo',
+    texto: 'Trabaja la memoria y la concentración al aprender coreografías.',
+  },
+  {
+    icono: '😊',
+    titulo: 'Emocional',
+    texto: 'Gana confianza y seguridad en ti mismo y disfruta más cada día.',
+  },
+] as const;
+---
+
+<Section>
+  <Container>
+    <h2 class="text-3xl font-bold">¿Por qué bailar?</h2>
+    <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {beneficios.map((b) => (
+        <li>
+          <Card class="h-full">
+            <p aria-hidden="true" class="text-3xl">
+              {b.icono}
+            </p>
+            <h3 class="mt-2 text-xl font-bold">{b.titulo}</h3>
+            <p class="mt-2">{b.texto}</p>
+          </Card>
+        </li>
+      ))}
+    </ul>
+  </Container>
+</Section>

@@ -1,0 +1,44 @@
+---
+import Container from '@/components/ui/Container.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+
+interface Props {
+  items: { label: string; href: string }[];
+}
+
+const { items } = Astro.props;
+const all = [{ label: 'Inicio', href: '/' }, ...items];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: all.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.label,
+    item: new URL(item.href, Astro.site).href,
+  })),
+};
+---
+
+<nav aria-label="Migas de pan" class="pt-4">
+  <Container>
+    <ol class="flex flex-wrap items-center gap-x-2 text-sm">
+      {all.map((item, i) => (
+        <li class="flex items-center gap-2">
+          {i > 0 && <span aria-hidden="true">/</span>}
+          {i === all.length - 1 ? (
+            <span aria-current="page">{item.label}</span>
+          ) : (
+            <a
+              href={item.href}
+              class="inline-flex min-h-11 items-center text-oceano underline underline-offset-4 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano"
+            >
+              {item.label}
+            </a>
+          )}
+        </li>
+      ))}
+    </ol>
+  </Container>
+  <JsonLd data={schema} />
+</nav>

@@ -1,0 +1,38 @@
+---
+import { Picture } from 'astro:assets';
+import heroImage from '@/assets/hero/hero.jpg';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import { SITE } from '@/config/site';
+---
+
+<section class="relative isolate overflow-hidden bg-noche text-crema">
+  <Picture
+    src={heroImage}
+    formats={['avif', 'webp']}
+    widths={[480, 800, 1200, 1600]}
+    sizes="100vw"
+    alt="Grupo de alumnos bailando en una clase de la escuela"
+    loading="eager"
+    fetchpriority="high"
+    class="absolute inset-0 -z-10 size-full object-cover opacity-40"
+  />
+  <Container class="py-20 md:py-28 lg:py-36">
+    <h1 class="max-w-3xl text-4xl leading-tight font-extrabold text-crema md:text-6xl">
+      Clases de baile en {SITE.address.city}
+    </h1>
+    <p class="mt-4 max-w-2xl text-lg md:text-xl">
+      Salsa, bachata, breakdance, zumba y kizomba. Tu primera clase es gratis y sin compromiso.
+    </p>
+    <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+      <Button href="/reservar">Reservar clase gratis</Button>
+      <Button
+        href="/horarios"
+        variant="ghost"
+        class="border-crema text-crema hover:bg-crema hover:text-noche"
+      >
+        Ver horarios
+      </Button>
+    </div>
+  </Container>
+</section>

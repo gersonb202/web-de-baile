@@ -1,0 +1,51 @@
+---
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+import { SITE } from '@/config/site';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { localBusinessSchema } from '@/lib/schema';
+---
+
+<BaseLayout
+  title="Contacto"
+  description="Dirección, teléfono y cómo llegar a nuestra escuela de baile. Reserva tu primera clase gratis."
+>
+  <Breadcrumbs items={[{ label: 'Contacto', href: '/contacto' }]} />
+  <Section>
+    <Container>
+      <h1 class="text-4xl font-extrabold">Contacto</h1>
+      <div class="mt-8 max-w-3xl space-y-4 text-lg">
+        <h2 class="text-2xl font-bold">Dónde estamos</h2>
+        <address class="not-italic">
+          {SITE.name}
+          <br />
+          {SITE.address.street}
+          <br />
+          {SITE.address.postalCode}
+          {SITE.address.city} ({SITE.address.region})<br />
+          <a
+            href={`tel:${SITE.phone.replace(/\s/g, '')}`}
+            class="text-oceano underline underline-offset-4"
+          >
+            {SITE.phone}
+          </a>
+          <br />
+          <a href={`mailto:${SITE.email}`} class="text-oceano underline underline-offset-4">
+            {SITE.email}
+          </a>
+        </address>
+        <h2 class="text-2xl font-bold">Horario de atención</h2>
+        <p>Texto de ejemplo: de lunes a viernes, de 10:00 a 21:00.</p>
+        <h2 class="text-2xl font-bold">Cómo llegar</h2>
+        <p>Texto de ejemplo: indicaciones en transporte público, coche y aparcamientos cercanos.</p>
+        <h2 class="text-2xl font-bold">Mapa</h2>
+        <p>El mapa se mostrará aquí próximamente.</p>
+        <Button href="/reservar">Reservar clase gratis</Button>
+      </div>
+    </Container>
+  </Section>
+  <JsonLd data={localBusinessSchema()} />
+</BaseLayout>

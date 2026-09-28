@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Faq from '@/components/sections/Faq.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { faqPageSchema } from '@/lib/schema';
+
+const items = (await getCollection('faq'))
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .map((e) => e.data);
+---
+
+<BaseLayout
+  title="Preguntas frecuentes"
+  description="Resolvemos tus dudas sobre clases, precios y reservas en nuestra escuela de baile."
+>
+  <Breadcrumbs items={[{ label: 'Preguntas frecuentes', href: '/faq' }]} />
+  <Section>
+    <Container>
+      <h1 class="text-4xl font-extrabold">Preguntas frecuentes</h1>
+      <div class="mt-8 max-w-3xl">
+        <Faq items={items} />
+      </div>
+      <Button href="/reservar" class="mt-10">
+        Reservar clase gratis
+      </Button>
+    </Container>
+  </Section>
+  <JsonLd data={faqPageSchema(items)} />
+</BaseLayout>

@@ -1,17 +1,9 @@
 import { defineCollection, reference } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { DIAS } from './lib/horarios';
 
 export const BAILES = ['salsa', 'bachata', 'breakdance', 'zumba', 'kizomba'] as const;
-export const DIAS = [
-  'lunes',
-  'martes',
-  'miercoles',
-  'jueves',
-  'viernes',
-  'sabado',
-  'domingo',
-] as const;
 
 const hora = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'Formato HH:MM');
 

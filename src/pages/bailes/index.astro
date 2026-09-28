@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Card from '@/components/ui/Card.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const bailes = (await getCollection('bailes')).sort((a, b) => a.data.orden - b.data.orden);
+---
+
+<BaseLayout
+  title="Bailes"
+  description="Salsa, bachata, breakdance, zumba y kizomba. Descubre nuestros estilos y reserva tu primera clase gratis."
+>
+  <Breadcrumbs items={[{ label: 'Bailes', href: '/bailes' }]} />
+  <Section>
+    <Container>
+      <h1 class="text-4xl font-extrabold">Nuestros bailes</h1>
+      <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {bailes.map((baile) => (
+          <li>
+            <Card class="h-full overflow-hidden p-0">
+              <Image
+                src={baile.data.portada}
+                alt={baile.data.portadaAlt}
+                widths={[400, 800]}
+                sizes="(min-width: 1024px) 384px, (min-width: 640px) 50vw, 100vw"
+                class="aspect-[3/2] w-full object-cover"
+              />
+              <div class="p-6">
+                <h2 class="text-xl font-bold">
+                  <a
+                    href={`/bailes/${baile.id}`}
+                    class="underline-offset-4 hover:underline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano"
+                  >
+                    {baile.data.nombre}
+                  </a>
+                </h2>
+                <p class="mt-2">{baile.data.resumen}</p>
+              </div>
+            </Card>
+          </li>
+        ))}
+      </ul>
+    </Container>
+  </Section>
+</BaseLayout>

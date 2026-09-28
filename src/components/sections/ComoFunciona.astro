@@ -1,0 +1,32 @@
+---
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+
+const pasos = [
+  { titulo: 'Elige baile', texto: 'Descubre nuestros estilos y escoge el que más te guste.' },
+  { titulo: 'Reserva por WhatsApp', texto: 'Rellena un formulario de un minuto y te escribimos.' },
+  { titulo: 'Ven a bailar', texto: 'Tu primera clase es gratis. Solo trae ropa cómoda.' },
+] as const;
+---
+
+<Section class="bg-oceano text-crema">
+  <Container>
+    <h2 class="text-3xl font-bold text-crema">Cómo funciona</h2>
+    <ol class="mt-8 grid gap-6 md:grid-cols-3">
+      {pasos.map((p, i) => (
+        <li class="flex gap-4">
+          <span
+            aria-hidden="true"
+            class="flex size-11 shrink-0 items-center justify-center rounded-full bg-fuego text-xl font-extrabold text-noche"
+          >
+            {i + 1}
+          </span>
+          <div>
+            <h3 class="text-xl font-bold text-crema">{p.titulo}</h3>
+            <p class="mt-1">{p.texto}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </Container>
+</Section>

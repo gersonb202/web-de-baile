@@ -1,0 +1,151 @@
+---
+import { getCollection } from 'astro:content';
+import { SITE } from '@/config/site';
+import { NIVELES } from '@/lib/whatsapp';
+
+const bailes = (await getCollection('bailes')).sort((a, b) => a.data.orden - b.data.orden);
+const campo =
+  'rounded-lg border-2 border-oceano bg-white p-3 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano';
+---
+
+<form id="reserva-form" class="grid max-w-xl gap-5" novalidate data-phone={SITE.whatsapp}>
+  <div class="grid gap-1">
+    <label for="nombre" class="font-semibold">
+      Nombre
+    </label>
+    <input
+      id="nombre"
+      name="nombre"
+      type="text"
+      required
+      maxlength="60"
+      autocomplete="given-name"
+      class={campo}
+    />
+  </div>
+
+  <div class="grid gap-1">
+    <label for="baile" class="font-semibold">
+      ¿Qué quieres bailar?
+    </label>
+    <select id="baile" name="baile" required class={campo}>
+      <option value="">Elige un baile</option>
+      {bailes.map((b) => (
+        <option value={b.data.nombre} data-slug={b.id}>
+          {b.data.nombre}
+        </option>
+      ))}
+    </select>
+  </div>
+
+  <fieldset class="grid gap-2">
+    <legend class="font-semibold">Tu nivel</legend>
+    {NIVELES.map((nivel, i) => (
+      <label class="flex min-h-11 items-center gap-3">
+        <input
+          type="radio"
+          name="nivel"
+          value={nivel}
+          required={i === 0}
+          class="size-5 accent-oceano"
+        />
+        {nivel}
+      </label>
+    ))}
+  </fieldset>
+
+  <div class="grid gap-1">
+    <label for="preferencia" class="font-semibold">
+      Día u horario preferido (opcional)
+    </label>
+    <input id="preferencia" name="preferencia" type="text" maxlength="120" class={campo} />
+  </div>
+
+  <label class="flex items-start gap-3">
+    <input type="checkbox" name="privacidad" required class="mt-1 size-5 shrink-0 accent-oceano" />
+    <span>
+      He leído y acepto la{' '}
+      <a href="/privacidad" class="text-oceano underline underline-offset-4">
+        política de privacidad
+      </a>
+      .
+    </span>
+  </label>
+
+  <p id="reserva-error" role="alert" class="font-semibold text-red-800" hidden></p>
+
+  <div>
+    <button
+      type="submit"
+      class="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-fuego px-6 py-3 font-bold text-noche transition hover:brightness-110 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano sm:w-auto"
+    >
+      Reservar por WhatsApp
+    </button>
+    <p class="mt-2 text-sm">Se abrirá WhatsApp con tu mensaje listo para enviar.</p>
+  </div>
+
+  <p class="text-sm">
+    ¿Prefieres escribirnos directamente?{' '}
+    <a
+      href={`https://wa.me/${SITE.whatsapp}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-oceano underline underline-offset-4"
+    >
+      Abrir WhatsApp
+    </a>{' '}
+    o llama al{' '}
+    <a
+      href={`tel:${SITE.phone.replace(/\s/g, '')}`}
+      class="text-oceano underline underline-offset-4"
+    >
+      {SITE.phone}
+    </a>
+    .
+  </p>
+</form>
+
+<script>
+  import { buildWhatsAppUrl } from '@/lib/whatsapp';
+
+  const form = document.querySelector<HTMLFormElement>('#reserva-form');
+  const error = document.querySelector<HTMLElement>('#reserva-error');
+  const select = form?.querySelector<HTMLSelectElement>('#baile');
+
+  if (form && error && select) {
+    const slug = new URLSearchParams(window.location.search).get('baile');
+    const option = [...select.options].find((o) => o.dataset['slug'] === slug);
+    if (option) select.value = option.value;
+
+    const showError = (message: string) => {
+      error.textContent = message;
+      error.hidden = false;
+    };
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      error.hidden = true;
+      if (!form.checkValidity()) {
+        showError('Revisa los campos obligatorios antes de continuar.');
+        form.reportValidity();
+        return;
+      }
+      const data = new FormData(form);
+      const text = (name: string) => {
+        const value = data.get(name);
+        return typeof value === 'string' ? value : '';
+      };
+      try {
+        const url = buildWhatsAppUrl(form.dataset['phone'] ?? '', {
+          nombre: text('nombre'),
+          baile: text('baile'),
+          nivel: text('nivel'),
+          preferencia: text('preferencia'),
+        });
+        window.open(url, '_blank', 'noopener,noreferrer');
+      } catch (e) {
+        showError(e instanceof Error ? e.message : 'No se ha podido preparar el mensaje.');
+      }
+    });
+  }
+</script>

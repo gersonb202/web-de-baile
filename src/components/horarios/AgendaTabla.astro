@@ -1,0 +1,59 @@
+---
+import { colorBaile, nombreBaile } from './colores';
+import { construirRejilla, DIA_LABEL, DIAS, type Clase } from '@/lib/horarios';
+
+interface Props {
+  clases: Clase[];
+}
+
+const { clases } = Astro.props;
+const dias = DIAS.filter((d) => clases.some((c) => c.dia === d));
+const filas = construirRejilla(clases);
+---
+
+<div class="hidden overflow-x-auto md:block">
+  <table class="w-full border-collapse text-left">
+    <caption class="sr-only">Horario semanal de clases</caption>
+    <thead>
+      <tr>
+        <th scope="col" class="p-2">
+          Hora
+        </th>
+        {dias.map((d) => (
+          <th scope="col" class="p-2">
+            {DIA_LABEL[d]}
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {filas.map((fila) => (
+        <tr class="border-t border-noche/20 align-top">
+          <th scope="row" class="p-2 font-semibold">
+            {fila.hora}
+          </th>
+          {dias.map((d) => (
+            <td class="space-y-2 p-2">
+              {fila.celdas[DIAS.indexOf(d)]?.map((c) => (
+                <div class:list={['rounded-lg p-3 text-noche', colorBaile(c.baile)]}>
+                  <p class="font-bold">{nombreBaile(c.baile)}</p>
+                  <p class="text-sm">
+                    {c.inicio}–{c.fin} · {c.nivel}
+                  </p>
+                  <p class="text-sm">{c.profesor}</p>
+                  <a
+                    href={`/reservar?baile=${c.baile}`}
+                    aria-label={`Probar gratis ${nombreBaile(c.baile)} el ${DIA_LABEL[c.dia].toLowerCase()} a las ${c.inicio}`}
+                    class="inline-flex min-h-11 items-center text-sm font-semibold underline underline-offset-4 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano"
+                  >
+                    Probar gratis
+                  </a>
+                </div>
+              ))}
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

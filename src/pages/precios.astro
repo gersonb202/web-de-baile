@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Faq from '@/components/sections/Faq.astro';
+import Badge from '@/components/ui/Badge.astro';
+import Button from '@/components/ui/Button.astro';
+import Card from '@/components/ui/Card.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const planes = (await getCollection('precios'))
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .slice(0, 3);
+const faqPrecios = (await getCollection('faq'))
+  .filter((e) => e.data.categoria === 'precios')
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .map((e) => e.data);
+---
+
+<BaseLayout
+  title="Precios"
+  description="Planes de clases de baile sin matrícula ni permanencia. Tu primera clase es gratis."
+>
+  <Breadcrumbs items={[{ label: 'Precios', href: '/precios' }]} />
+  <Section>
+    <Container>
+      <h1 class="text-4xl font-extrabold">Precios</h1>
+      <p class="mt-4 text-lg">Precios con IVA incluido. Tu primera clase es gratis.</p>
+      <ul class="mt-8 grid gap-6 md:grid-cols-3">
+        {planes.map((p) => (
+          <li>
+            <Card
+              class:list={['flex h-full flex-col', p.data.recomendado && 'border-4 border-fuego']}
+            >
+              {p.data.recomendado && <Badge class="self-start">Más popular</Badge>}
+              <h2 class="mt-2 text-2xl font-bold">{p.data.nombre}</h2>
+              <p class="mt-1">{p.data.clasesSemana}</p>
+              <p class="mt-4 text-4xl font-extrabold text-oceano">
+                {p.data.precioMensual} €<span class="text-base font-normal">/mes</span>
+              </p>
+              <ul class="mt-4 list-disc space-y-1 pl-5">
+                {p.data.incluye.map((i) => (
+                  <li>{i}</li>
+                ))}
+              </ul>
+              <p class="mt-4 text-sm">
+                {p.data.matricula}. {p.data.permanencia}.
+              </p>
+              <div class="mt-auto pt-6">
+                <Button href="/reservar" class="w-full">
+                  Probar gratis
+                </Button>
+              </div>
+            </Card>
+          </li>
+        ))}
+      </ul>
+    </Container>
+  </Section>
+  {faqPrecios.length > 0 && (
+    <Section class="bg-white">
+      <Container>
+        <h2 class="text-3xl font-bold">Dudas sobre precios</h2>
+        <div class="mt-6 max-w-3xl">
+          <Faq items={faqPrecios} />
+        </div>
+      </Container>
+    </Section>
+  )}
+</BaseLayout>

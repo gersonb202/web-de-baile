@@ -1,0 +1,21 @@
+---
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import ReservaForm from '@/components/forms/ReservaForm.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Reservar clase gratuita"
+  description="Reserva tu primera clase de baile gratis y sin compromiso. Rellena el formulario y te atendemos por WhatsApp."
+>
+  <Breadcrumbs items={[{ label: 'Reservar', href: '/reservar' }]} />
+  <Section>
+    <Container>
+      <h1 class="text-4xl font-extrabold">Reservar clase gratuita</h1>
+      <p class="mt-4 mb-8 text-lg">Tu primera clase es gratis y sin compromiso.</p>
+      <ReservaForm />
+    </Container>
+  </Section>
+</BaseLayout>

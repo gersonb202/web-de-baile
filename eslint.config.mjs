@@ -30,6 +30,14 @@ export default [
       '@typescript-eslint/no-unsafe-return': 'off',
     },
   },
+  // TypeScript no resuelve imports `.astro` desde archivos `.ts` (solo `astro check` lo hace),
+  // así que los tests con Container API ven el componente como tipo `error`.
+  {
+    files: ['tests/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-unsafe-argument': 'off',
+    },
+  },
   // Global ignores
   {
     ignores: ['dist/', '.astro/', 'node_modules/'],

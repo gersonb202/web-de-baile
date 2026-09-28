@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Button from '@/components/ui/Button.astro';
+import Card from '@/components/ui/Card.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+import { SITE } from '@/config/site';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const servicios = (await getCollection('servicios')).sort((a, b) => a.data.orden - b.data.orden);
+const whatsappUrl = (mensaje: string) =>
+  `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(mensaje)}`;
+---
+
+<BaseLayout
+  title="Servicios"
+  description="Talleres, eventos, clases intensivas y clases particulares de baile. Pregúntanos por WhatsApp."
+>
+  <Breadcrumbs items={[{ label: 'Servicios', href: '/servicios' }]} />
+  <Section>
+    <Container>
+      <h1 class="text-4xl font-extrabold">Servicios</h1>
+      <ul class="mt-8 grid gap-6 md:grid-cols-2">
+        {servicios.map((s) => (
+          <li>
+            <Card class="flex h-full flex-col">
+              <h2 class="text-2xl font-bold">{s.data.nombre}</h2>
+              <p class="mt-2">{s.data.descripcion}</p>
+              <dl class="mt-4 space-y-1">
+                <div>
+                  <dt class="inline font-semibold">Para quién: </dt>
+                  <dd class="inline">{s.data.paraQuien}</dd>
+                </div>
+                <div>
+                  <dt class="inline font-semibold">Duración: </dt>
+                  <dd class="inline">{s.data.duracion}</dd>
+                </div>
+                <div>
+                  <dt class="inline font-semibold">Precio orientativo: </dt>
+                  <dd class="inline">{s.data.precioOrientativo}</dd>
+                </div>
+              </dl>
+              <div class="mt-auto pt-6">
+                <Button href={whatsappUrl(s.data.mensajeWhatsApp)}>Consultar por WhatsApp</Button>
+              </div>
+            </Card>
+          </li>
+        ))}
+      </ul>
+    </Container>
+  </Section>
+</BaseLayout>

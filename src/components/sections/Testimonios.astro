@@ -1,0 +1,85 @@
+---
+import Card from '@/components/ui/Card.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+
+interface Props {
+  items: { autor: string; texto: string; valoracion: number; fuente: 'google' | 'directo' }[];
+}
+
+const { items } = Astro.props;
+const boton =
+  'inline-flex size-11 items-center justify-center rounded-full bg-oceano text-xl text-crema focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano';
+---
+
+<Section>
+  <Container>
+    <div
+      aria-roledescription="carrusel"
+      role="region"
+      aria-label="Testimonios de alumnos"
+      data-carrusel
+    >
+      <div class="flex items-center justify-between gap-4">
+        <h2 class="text-3xl font-bold">Lo que dicen nuestros alumnos</h2>
+        <div class="flex gap-2" data-carrusel-controles hidden>
+          <button type="button" class={boton} data-prev aria-label="Testimonio anterior">
+            <span aria-hidden="true">←</span>
+          </button>
+          <button type="button" class={boton} data-next aria-label="Testimonio siguiente">
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+      <ul
+        tabindex="0"
+        aria-label="Lista de testimonios"
+        data-pista
+        class="mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-4"
+      >
+        {items.map((t, i) => (
+          <li
+            role="group"
+            aria-roledescription="diapositiva"
+            aria-label={`Testimonio ${String(i + 1)} de ${String(items.length)}`}
+            class="w-4/5 shrink-0 snap-start md:w-1/3"
+          >
+            <Card class="h-full">
+              <p
+                aria-label={`${String(t.valoracion)} de 5 estrellas`}
+                class="text-fuego"
+                role="img"
+              >
+                {'★'.repeat(t.valoracion)}
+              </p>
+              <blockquote class="mt-2">“{t.texto}”</blockquote>
+              <p class="mt-4 font-semibold">{t.autor}</p>
+              <p class="text-sm">
+                {t.fuente === 'google' ? 'Reseña de Google' : 'Opinión directa'}
+              </p>
+            </Card>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Container>
+</Section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carrusel]').forEach((root) => {
+    const pista = root.querySelector<HTMLElement>('[data-pista]');
+    const controles = root.querySelector<HTMLElement>('[data-carrusel-controles]');
+    if (!pista || !controles) return;
+    controles.hidden = false;
+    const mover = (dir: 1 | -1) => {
+      const paso = pista.querySelector('li')?.getBoundingClientRect().width ?? pista.clientWidth;
+      pista.scrollBy({ left: dir * paso, behavior: 'smooth' });
+    };
+    root.querySelector('[data-prev]')?.addEventListener('click', () => {
+      mover(-1);
+    });
+    root.querySelector('[data-next]')?.addEventListener('click', () => {
+      mover(1);
+    });
+  });
+</script>

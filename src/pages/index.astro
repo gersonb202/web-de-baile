@@ -1,20 +1,121 @@
 ---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Beneficios from '@/components/sections/Beneficios.astro';
+import ComoFunciona from '@/components/sections/ComoFunciona.astro';
+import CtaBanner from '@/components/sections/CtaBanner.astro';
+import Faq from '@/components/sections/Faq.astro';
+import Testimonios from '@/components/sections/Testimonios.astro';
+import Hero from '@/components/sections/Hero.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
 import Button from '@/components/ui/Button.astro';
+import Card from '@/components/ui/Card.astro';
 import Container from '@/components/ui/Container.astro';
 import Section from '@/components/ui/Section.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { localBusinessSchema } from '@/lib/schema';
+
+const testimonios = (await getCollection('testimonios')).map((e) => e.data);
+const profesores = (await getCollection('profesores')).slice(0, 4);
+const faqs = (await getCollection('faq'))
+  .sort((a, b) => a.data.orden - b.data.orden)
+  .slice(0, 4)
+  .map((e) => e.data);
+const bailes = (await getCollection('bailes')).sort((a, b) => a.data.orden - b.data.orden);
 ---
 
 <BaseLayout
   title="Clases de baile"
   description="Escuela de baile: salsa, bachata, breakdance, zumba y kizomba. Reserva tu primera clase gratis por WhatsApp."
 >
+  <Hero />
+
+  <Section class="bg-white py-8 md:py-8">
+    <Container>
+      <p class="text-center text-lg font-semibold text-oceano">
+        +500 alumnos · 5 estilos · 4,9★ en Google
+      </p>
+    </Container>
+  </Section>
+
+  <Beneficios />
+
   <Section>
     <Container>
-      <h1 class="text-4xl font-extrabold">Escuela de Baile — Próximamente</h1>
-      <Button href="/reservar" class="mt-6">
-        Reservar clase gratis
+      <h2 class="text-3xl font-bold">Nuestros bailes</h2>
+      <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {bailes.map((baile) => (
+          <li>
+            <Card class="h-full overflow-hidden p-0">
+              <Image
+                src={baile.data.portada}
+                alt={baile.data.portadaAlt}
+                widths={[400, 800]}
+                sizes="(min-width: 1024px) 384px, (min-width: 640px) 50vw, 100vw"
+                class="aspect-[3/2] w-full object-cover"
+              />
+              <div class="p-6">
+                <h3 class="text-xl font-bold">
+                  <a
+                    href={`/bailes/${baile.id}`}
+                    class="underline-offset-4 hover:underline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano"
+                  >
+                    {baile.data.nombre}
+                  </a>
+                </h3>
+                <p class="mt-2">{baile.data.resumen}</p>
+              </div>
+            </Card>
+          </li>
+        ))}
+      </ul>
+    </Container>
+  </Section>
+
+  <ComoFunciona />
+
+  <Testimonios items={testimonios} />
+
+  <Section class="bg-white">
+    <Container>
+      <h2 class="text-3xl font-bold">Nuestros profesores</h2>
+      <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {profesores.map((p) => (
+          <li>
+            <Card class="h-full overflow-hidden p-0">
+              <Image
+                src={p.data.foto}
+                alt={`Retrato de ${p.data.nombre}, profesor de ${p.data.especialidad}`}
+                widths={[300, 600]}
+                sizes="(min-width: 1024px) 264px, (min-width: 640px) 50vw, 100vw"
+                class="aspect-square w-full object-cover"
+              />
+              <div class="p-4">
+                <h3 class="text-xl font-bold">{p.data.nombre}</h3>
+                <p class="font-semibold text-cielo">{p.data.especialidad}</p>
+              </div>
+            </Card>
+          </li>
+        ))}
+      </ul>
+      <Button href="/conocenos" variant="ghost" class="mt-8">
+        Conoce al equipo
       </Button>
     </Container>
   </Section>
+
+  <Section>
+    <Container>
+      <h2 class="text-3xl font-bold">Preguntas frecuentes</h2>
+      <div class="mt-6 max-w-3xl">
+        <Faq items={faqs} />
+      </div>
+      <Button href="/faq" variant="ghost" class="mt-8">
+        Ver todas
+      </Button>
+    </Container>
+  </Section>
+
+  <CtaBanner />
+  <JsonLd data={localBusinessSchema()} />
 </BaseLayout>
