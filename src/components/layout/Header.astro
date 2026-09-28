@@ -1,0 +1,35 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import { NAV_ITEMS } from '@/config/nav';
+import { SITE } from '@/config/site';
+---
+
+<header class="sticky top-0 z-40 bg-crema/95 shadow-sm backdrop-blur">
+  <Container class="flex min-h-16 items-center justify-between gap-4">
+    <a
+      href="/"
+      class="font-display text-xl font-extrabold text-oceano focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano"
+    >
+      {SITE.name}
+    </a>
+    <nav aria-label="Principal" class="hidden md:block">
+      <ul class="flex items-center gap-1 lg:gap-3">
+        {NAV_ITEMS.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="inline-flex min-h-11 items-center rounded-full px-3 font-semibold text-oceano hover:bg-oceano hover:text-crema focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <Button href="/reservar" class="hidden md:inline-flex">
+      Clase gratis
+    </Button>
+    <slot name="mobile" />
+  </Container>
+</header>

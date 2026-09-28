@@ -1,0 +1,34 @@
+---
+import '@/styles/global.css';
+import Footer from '@/components/layout/Footer.astro';
+import Header from '@/components/layout/Header.astro';
+import MobileNav from '@/components/layout/MobileNav.astro';
+import SkipLink from '@/components/layout/SkipLink.astro';
+import StickyCta from '@/components/layout/StickyCta.astro';
+import BaseHead from '@/components/seo/BaseHead.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+}
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <BaseHead {...Astro.props} />
+  </head>
+  <body>
+    <SkipLink />
+    <Header>
+      <MobileNav slot="mobile" />
+    </Header>
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    <StickyCta />
+  </body>
+</html>

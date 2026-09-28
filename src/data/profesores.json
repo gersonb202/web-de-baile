@@ -1,0 +1,29 @@
+[
+  {
+    "id": "ana-garcia",
+    "nombre": "Ana García",
+    "especialidad": "Salsa y bachata",
+    "foto": "../assets/profesores/profesor-1.jpg",
+    "bio": "Más de diez años enseñando baile latino. Le encanta que los principiantes se suelten desde la primera clase."
+  },
+  {
+    "id": "carlos-ruiz",
+    "nombre": "Carlos Ruiz",
+    "especialidad": "Breakdance",
+    "foto": "../assets/profesores/profesor-2.jpg",
+    "bio": "Bboy con experiencia en competiciones nacionales. Trabaja técnica, fuerza y creatividad."
+  },
+  {
+    "id": "lucia-martin",
+    "nombre": "Lucía Martín",
+    "especialidad": "Zumba y fitness",
+    "foto": "../assets/profesores/profesor-3.jpg"
+  },
+  {
+    "id": "diego-santos",
+    "nombre": "Diego Santos",
+    "especialidad": "Kizomba",
+    "foto": "../assets/profesores/profesor-4.jpg",
+    "bio": "Especialista en ritmos africanos y kizomba. Sus clases destacan por la conexión en pareja."
+  }
+]

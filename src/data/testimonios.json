@@ -1,0 +1,41 @@
+[
+  {
+    "id": "t1",
+    "autor": "María P.",
+    "texto": "Nunca había bailado y en la primera clase ya me sentía cómoda. El ambiente es genial y los profesores muy pacientes.",
+    "baile": "salsa",
+    "valoracion": 5,
+    "fuente": "google"
+  },
+  {
+    "id": "t2",
+    "autor": "Javier L.",
+    "texto": "Vine a probar la clase gratuita de bachata y me apunté esa misma semana. Totalmente recomendable.",
+    "baile": "bachata",
+    "valoracion": 5,
+    "fuente": "google"
+  },
+  {
+    "id": "t3",
+    "autor": "Laura S.",
+    "texto": "La zumba de los lunes es lo mejor de mi semana. Salgo con energía y con ganas de repetir.",
+    "baile": "zumba",
+    "valoracion": 5,
+    "fuente": "directo"
+  },
+  {
+    "id": "t4",
+    "autor": "Pablo M.",
+    "texto": "Mi hijo adolescente ha descubierto el breakdance aquí y está encantado. Muy buen trato y clases bien organizadas.",
+    "baile": "breakdance",
+    "valoracion": 4,
+    "fuente": "google"
+  },
+  {
+    "id": "t5",
+    "autor": "Elena R.",
+    "texto": "Me daba vergüenza venir sola, pero aquí no hace falta pareja y todo el mundo te acoge desde el primer minuto.",
+    "valoracion": 5,
+    "fuente": "directo"
+  }
+]

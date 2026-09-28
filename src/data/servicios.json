@@ -1,0 +1,42 @@
+[
+  {
+    "id": "talleres",
+    "nombre": "Talleres",
+    "descripcion": "Sesiones monográficas de un fin de semana sobre un estilo o técnica concreta.",
+    "paraQuien": "Personas que quieren profundizar sin comprometerse a un curso.",
+    "duracion": "3 horas",
+    "precioOrientativo": "Desde 25 €",
+    "mensajeWhatsApp": "Hola, me interesa información sobre los talleres.",
+    "orden": 1
+  },
+  {
+    "id": "eventos",
+    "nombre": "Eventos",
+    "descripcion": "Fiestas, despedidas y celebraciones con clase de baile incluida.",
+    "paraQuien": "Grupos de amigos, empresas y familias.",
+    "duracion": "1 a 2 horas",
+    "precioOrientativo": "Desde 150 € por grupo",
+    "mensajeWhatsApp": "Hola, me interesa información sobre eventos de baile.",
+    "orden": 2
+  },
+  {
+    "id": "intensivos",
+    "nombre": "Clases intensivas",
+    "descripcion": "Cursos cortos y concentrados para progresar rápido.",
+    "paraQuien": "Quien tiene un evento cerca o quiere avanzar en pocas semanas.",
+    "duracion": "2 semanas, 4 sesiones por semana",
+    "precioOrientativo": "Desde 90 €",
+    "mensajeWhatsApp": "Hola, me interesa información sobre las clases intensivas.",
+    "orden": 3
+  },
+  {
+    "id": "particulares",
+    "nombre": "Clases particulares",
+    "descripcion": "Clases individuales o en pareja adaptadas a tu ritmo y objetivos.",
+    "paraQuien": "Parejas que preparan su baile de boda y personas que prefieren atención personalizada.",
+    "duracion": "1 hora",
+    "precioOrientativo": "Desde 35 € por sesión",
+    "mensajeWhatsApp": "Hola, me interesa información sobre las clases particulares.",
+    "orden": 4
+  }
+]

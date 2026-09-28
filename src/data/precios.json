@@ -1,0 +1,40 @@
+[
+  {
+    "id": "una-clase",
+    "nombre": "1 clase/semana",
+    "clasesSemana": "1 clase por semana",
+    "precioMensual": 30,
+    "incluye": ["4 clases al mes", "Un baile a elegir", "Acceso a la sala de práctica libre"],
+    "recomendado": false,
+    "matricula": "Sin matrícula",
+    "permanencia": "Sin permanencia",
+    "orden": 1
+  },
+  {
+    "id": "dos-clases",
+    "nombre": "2 clases/semana",
+    "clasesSemana": "2 clases por semana",
+    "precioMensual": 50,
+    "incluye": ["8 clases al mes", "Dos bailes a elegir", "Acceso a la sala de práctica libre"],
+    "recomendado": true,
+    "matricula": "Sin matrícula",
+    "permanencia": "Sin permanencia",
+    "orden": 2
+  },
+  {
+    "id": "ilimitado",
+    "nombre": "Ilimitado",
+    "clasesSemana": "Todas las clases que quieras",
+    "precioMensual": 70,
+    "incluye": [
+      "Clases ilimitadas",
+      "Todos los bailes",
+      "Acceso a la sala de práctica libre",
+      "Descuento en talleres"
+    ],
+    "recomendado": false,
+    "matricula": "Sin matrícula",
+    "permanencia": "Sin permanencia",
+    "orden": 3
+  }
+]

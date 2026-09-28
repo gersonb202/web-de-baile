@@ -1,0 +1,58 @@
+[
+  {
+    "id": "general-1",
+    "pregunta": "¿Necesito experiencia previa para bailar?",
+    "respuesta": "No. Tenemos grupos de iniciación pensados para quien empieza desde cero.",
+    "categoria": "general",
+    "orden": 1
+  },
+  {
+    "id": "general-2",
+    "pregunta": "¿Dónde está la escuela?",
+    "respuesta": "Encontrarás la dirección exacta y cómo llegar en la página de contacto.",
+    "categoria": "general",
+    "orden": 2
+  },
+  {
+    "id": "clases-1",
+    "pregunta": "¿Tengo que venir con pareja?",
+    "respuesta": "No hace falta. Rotamos parejas durante la clase y muchas personas vienen solas.",
+    "categoria": "clases",
+    "orden": 3
+  },
+  {
+    "id": "clases-2",
+    "pregunta": "¿Qué ropa y calzado debo llevar?",
+    "respuesta": "Ropa cómoda y calzado que sujete bien el pie y permita girar. Evita las suelas de goma muy agarradas.",
+    "categoria": "clases",
+    "orden": 4
+  },
+  {
+    "id": "precios-1",
+    "pregunta": "¿Cuánto cuestan las clases?",
+    "respuesta": "Tenemos planes desde una clase por semana. Consulta la página de precios para ver todos los detalles.",
+    "categoria": "precios",
+    "orden": 5
+  },
+  {
+    "id": "precios-2",
+    "pregunta": "¿Hay permanencia o matrícula?",
+    "respuesta": "No hay permanencia y puedes darte de baja cuando quieras. Las condiciones de matrícula están detalladas en cada plan.",
+    "categoria": "precios",
+    "orden": 6
+  },
+  {
+    "id": "reserva-1",
+    "pregunta": "¿Cómo reservo mi clase gratuita?",
+    "respuesta": "Rellena el formulario de reserva y se abrirá WhatsApp con tu mensaje listo para enviar.",
+    "categoria": "reserva",
+    "orden": 7
+  },
+  {
+    "id": "reserva-2",
+    "pregunta": "¿Puedo cambiar o cancelar mi reserva?",
+    "respuesta": "Sí, escríbenos por WhatsApp con antelación y buscamos otro hueco para ti.",
+    "categoria": "reserva",
+    "orden": 8
+  }
+]

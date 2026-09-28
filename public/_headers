@@ -1,0 +1,29 @@
+/*
+  # Strict Transport Security: fuerza HTTPS durante 1 año, incluye subdominios
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Previene MIME type sniffing
+  X-Content-Type-Options: nosniff
+
+  # Previene clickjacking
+  X-Frame-Options: DENY
+
+  # Controla información enviada en el Referer header
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Limita acceso a APIs del navegador
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+
+  # Content Security Policy
+  # - default-src 'self': solo recursos propios por defecto
+  # - script-src 'self': scripts solo del propio dominio (Astro inline scripts necesitan hash — ver riesgo R1 en plan.md)
+  # - style-src 'self' 'unsafe-inline': Tailwind requiere inline styles
+  # - img-src 'self' data: https:
+  # - font-src 'self': fuentes auto-alojadas
+  # - connect-src 'self': sin peticiones XHR/fetch a terceros por defecto
+  # - frame-src 'none': sin iframes por defecto (MapaFacade los añadirá dinámicamente con JS)
+  # - object-src 'none': sin plugins
+  # - base-uri 'self': previene inyección de base tag
+  # - form-action 'self': formularios solo envían a origen propio
+  # - upgrade-insecure-requests: actualiza peticiones HTTP a HTTPS
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;

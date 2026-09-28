@@ -11,46 +11,46 @@ Web estática (SSG) de una escuela de baile. **Objetivo de negocio único: que e
 
 ### Documentación clave
 
-| Documento | Propósito |
-|---|---|
-| [`guia.md`](guia.md) | Guía completa de arquitectura, implementación y buenas prácticas |
-| [`docs/constitution.md`](docs/constitution.md) | Principios no negociables del proyecto |
-| [`specs/spec.md`](specs/spec.md) | Especificación técnica detallada (SDD) |
+| Documento                                      | Propósito                                                        |
+| ---------------------------------------------- | ---------------------------------------------------------------- |
+| [`guia.md`](guia.md)                           | Guía completa de arquitectura, implementación y buenas prácticas |
+| [`docs/constitution.md`](docs/constitution.md) | Principios no negociables del proyecto                           |
+| [`specs/spec.md`](specs/spec.md)               | Especificación técnica detallada (SDD)                           |
 
 ---
 
 ## Stack
 
-| Capa | Tecnología |
-|---|---|
-| Framework | Astro ^7.3.4 (salida 100% estática) |
-| Lenguaje | TypeScript estricto (`astro/tsconfigs/strictest`) |
-| Estilos | TailwindCSS v4 (plugin de Vite) |
-| Imágenes | Sharp (AVIF/WebP automático vía `astro:assets`) |
-| Contenido | Content Collections + Zod |
-| Tests unitarios | Vitest |
-| Tests E2E + a11y | Playwright + `@axe-core/playwright` |
-| Calidad | ESLint (`eslint-plugin-astro`), Prettier, `astro check` |
-| CI | GitHub Actions |
-| Cookies | `vanilla-cookieconsent` |
-| Vídeos | `@astro-community/astro-embed-youtube` (fachada) |
+| Capa             | Tecnología                                              |
+| ---------------- | ------------------------------------------------------- |
+| Framework        | Astro ^7.3.4 (salida 100% estática)                     |
+| Lenguaje         | TypeScript estricto (`astro/tsconfigs/strictest`)       |
+| Estilos          | TailwindCSS v4 (plugin de Vite)                         |
+| Imágenes         | Sharp (AVIF/WebP automático vía `astro:assets`)         |
+| Contenido        | Content Collections + Zod                               |
+| Tests unitarios  | Vitest                                                  |
+| Tests E2E + a11y | Playwright + `@axe-core/playwright`                     |
+| Calidad          | ESLint (`eslint-plugin-astro`), Prettier, `astro check` |
+| CI               | GitHub Actions                                          |
+| Cookies          | `vanilla-cookieconsent`                                 |
+| Vídeos           | `@astro-community/astro-embed-youtube` (fachada)        |
 
 ---
 
 ## Comandos
 
-| Acción | Comando |
-|---|---|
-| Desarrollo | `npm run dev` |
-| Build (incluye `astro check`) | `npm run build` |
-| Previsualizar build | `npm run preview` |
-| Comprobar tipos Astro | `npm run check` |
-| Lint | `npm run lint` |
-| Formato | `npm run format` |
-| Comprobar formato | `npm run format:check` |
-| Tests unitarios | `npm test` |
-| Tests unitarios (watch) | `npm run test:watch` |
-| Tests E2E | `npm run test:e2e` |
+| Acción                        | Comando                |
+| ----------------------------- | ---------------------- |
+| Desarrollo                    | `npm run dev`          |
+| Build (incluye `astro check`) | `npm run build`        |
+| Previsualizar build           | `npm run preview`      |
+| Comprobar tipos Astro         | `npm run check`        |
+| Lint                          | `npm run lint`         |
+| Formato                       | `npm run format`       |
+| Comprobar formato             | `npm run format:check` |
+| Tests unitarios               | `npm test`             |
+| Tests unitarios (watch)       | `npm run test:watch`   |
+| Tests E2E                     | `npm run test:e2e`     |
 
 ---
 
@@ -142,12 +142,12 @@ escuela-baile/
 
 ### Nombrado
 
-| Tipo | Convención | Ejemplo |
-|---|---|---|
-| Componentes Astro | `PascalCase.astro` | `ReservaForm.astro` |
-| Utilidades TS | `camelCase.ts` | `whatsapp.ts` |
-| Rutas y slugs | `kebab-case` | `/bailes/breakdance` |
-| Tokens de color | Nombre semántico | `fuego`, `crema`, `oceano`, `cielo`, `noche` |
+| Tipo              | Convención         | Ejemplo                                      |
+| ----------------- | ------------------ | -------------------------------------------- |
+| Componentes Astro | `PascalCase.astro` | `ReservaForm.astro`                          |
+| Utilidades TS     | `camelCase.ts`     | `whatsapp.ts`                                |
+| Rutas y slugs     | `kebab-case`       | `/bailes/breakdance`                         |
+| Tokens de color   | Nombre semántico   | `fuego`, `crema`, `oceano`, `cielo`, `noche` |
 
 ### Estilos
 
@@ -226,7 +226,7 @@ chore: actualizar dependencias
 - ❌ Usar `set:html` o `innerHTML` con contenido no controlado.
 - ❌ Guardar secretos o claves en el repositorio.
 - ❌ Poner imágenes de contenido en `public/`.
-- ❌ Sobre-ingeniería: no añadir CMS, i18n, SSR ni nada que no se necesite *ahora* (YAGNI).
+- ❌ Sobre-ingeniería: no añadir CMS, i18n, SSR ni nada que no se necesite _ahora_ (YAGNI).
 
 ---
 
