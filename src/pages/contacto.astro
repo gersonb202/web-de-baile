@@ -1,5 +1,6 @@
 ---
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import MapaFacade from '@/components/media/MapaFacade.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import Button from '@/components/ui/Button.astro';
 import Container from '@/components/ui/Container.astro';
@@ -42,7 +43,7 @@ import { localBusinessSchema } from '@/lib/schema';
         <h2 class="text-2xl font-bold">Cómo llegar</h2>
         <p>Texto de ejemplo: indicaciones en transporte público, coche y aparcamientos cercanos.</p>
         <h2 class="text-2xl font-bold">Mapa</h2>
-        <p>El mapa se mostrará aquí próximamente.</p>
+        <MapaFacade />
         <Button href="/reservar">Reservar clase gratis</Button>
       </div>
     </Container>

@@ -31,18 +31,20 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  background-color: var(--color-crema);
-  color: var(--color-noche);
-  font-family: var(--font-body);
-  font-size: 1rem;
-}
+@layer base {
+  body {
+    background-color: var(--color-crema);
+    color: var(--color-noche);
+    font-family: var(--font-body);
+    font-size: 1rem;
+  }
 
-h1,
-h2,
-h3 {
-  font-family: var(--font-display);
-  color: var(--color-oceano);
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    color: var(--color-oceano);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -55,4 +57,10 @@ h3 {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Áreas táctiles ≥ 44 px en el banner de cookies */
+#cc-main .cm__btn,
+#cc-main .pm__btn {
+  min-height: 2.75rem;
 }

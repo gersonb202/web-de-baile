@@ -1,0 +1,83 @@
+---
+import { SITE } from '@/config/site';
+import LegalLayout from '@/layouts/LegalLayout.astro';
+
+const cookies = [
+  {
+    nombre: 'cc_cookie',
+    finalidad: 'Guarda tu decisión sobre el uso de cookies.',
+    duracion: '6 meses',
+    titular: SITE.name,
+    categoria: 'Necesaria',
+  },
+  {
+    nombre: 'Cookies de Google Maps',
+    finalidad: 'Mostrar el mapa interactivo (solo si aceptas o cargas el mapa).',
+    duracion: 'Según Google',
+    titular: 'Google LLC',
+    categoria: 'Multimedia',
+  },
+  {
+    nombre: 'Cookies de YouTube',
+    finalidad: 'Reproducir vídeos incrustados (solo si pulsas reproducir).',
+    duracion: 'Según Google',
+    titular: 'Google LLC',
+    categoria: 'Multimedia',
+  },
+] as const;
+---
+
+<LegalLayout
+  title="Política de cookies"
+  description="Qué cookies usa esta web, para qué sirven, cuánto duran y quién las gestiona."
+  href="/cookies"
+>
+  <h2>¿Qué son las cookies?</h2>
+  <p>
+    Son pequeños archivos que se guardan en tu dispositivo. Solo usamos las estrictamente
+    necesarias; el resto requiere tu consentimiento previo.
+  </p>
+  <h2>Cookies utilizadas</h2>
+  <div class="overflow-x-auto" role="region" aria-label="Tabla de cookies" tabindex="0">
+    <table class="w-full border-collapse text-left text-base">
+      <caption class="sr-only">Listado de cookies</caption>
+      <thead>
+        <tr>
+          <th scope="col" class="p-2">
+            Cookie
+          </th>
+          <th scope="col" class="p-2">
+            Finalidad
+          </th>
+          <th scope="col" class="p-2">
+            Duración
+          </th>
+          <th scope="col" class="p-2">
+            Titular
+          </th>
+          <th scope="col" class="p-2">
+            Categoría
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {cookies.map((c) => (
+          <tr class="border-t border-noche/20 align-top">
+            <th scope="row" class="p-2 font-semibold">
+              {c.nombre}
+            </th>
+            <td class="p-2">{c.finalidad}</td>
+            <td class="p-2">{c.duracion}</td>
+            <td class="p-2">{c.titular}</td>
+            <td class="p-2">{c.categoria}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <h2>Cómo cambiar tu decisión</h2>
+  <p>
+    Puedes modificar o retirar tu consentimiento en cualquier momento con el enlace «Configurar
+    cookies» del pie de página.
+  </p>
+</LegalLayout>

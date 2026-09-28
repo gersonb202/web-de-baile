@@ -1,0 +1,67 @@
+---
+---
+
+<script>
+  import 'vanilla-cookieconsent/dist/cookieconsent.css';
+  import * as CookieConsent from 'vanilla-cookieconsent';
+
+  void CookieConsent.run({
+    // Los navegadores automatizados (Playwright) cuentan como bots y no verían el banner.
+    hideFromBots: false,
+    guiOptions: {
+      consentModal: { layout: 'box inline', position: 'bottom center', equalWeightButtons: true },
+      preferencesModal: { layout: 'box', equalWeightButtons: true },
+    },
+    categories: {
+      necessary: { enabled: true, readOnly: true },
+      analytics: {},
+      multimedia: {},
+    },
+    language: {
+      default: 'es',
+      translations: {
+        es: {
+          consentModal: {
+            title: 'Usamos cookies',
+            description:
+              'Usamos cookies técnicas necesarias. Con tu permiso, también cargaremos analítica y contenido de terceros (mapas y vídeos). Puedes cambiar tu decisión cuando quieras.',
+            acceptAllBtn: 'Aceptar',
+            acceptNecessaryBtn: 'Rechazar',
+            showPreferencesBtn: 'Configurar',
+            footer: '<a href="/cookies">Política de cookies</a>',
+          },
+          preferencesModal: {
+            title: 'Configurar cookies',
+            acceptAllBtn: 'Aceptar todo',
+            acceptNecessaryBtn: 'Rechazar todo',
+            savePreferencesBtn: 'Guardar selección',
+            closeIconLabel: 'Cerrar',
+            sections: [
+              {
+                title: 'Uso de cookies',
+                description:
+                  'Elige qué categorías quieres permitir. Más información en la <a href="/cookies">política de cookies</a>.',
+              },
+              {
+                title: 'Necesarias',
+                description:
+                  'Imprescindibles para recordar tu decisión sobre cookies. Siempre activas.',
+                linkedCategory: 'necessary',
+              },
+              {
+                title: 'Analítica',
+                description: 'Nos ayudan a entender cómo se usa la web para mejorarla.',
+                linkedCategory: 'analytics',
+              },
+              {
+                title: 'Contenido multimedia',
+                description: 'Permiten mostrar mapas de Google Maps y vídeos de YouTube.',
+                linkedCategory: 'multimedia',
+              },
+            ],
+          },
+        },
+      },
+    },
+  });
+</script>

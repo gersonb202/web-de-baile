@@ -1,0 +1,27 @@
+---
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+}
+
+const { title, description, href } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} noindex>
+  <Breadcrumbs items={[{ label: title, href }]} />
+  <Section>
+    <Container>
+      <h1 class="text-4xl font-extrabold">{title}</h1>
+      <p class="mt-2 text-sm">Texto de ejemplo: sustituir por el texto legal definitivo.</p>
+      <div class="mt-8 max-w-3xl space-y-4 text-lg [&_a]:text-oceano [&_a]:underline [&_a]:underline-offset-4 [&_h2]:mt-8 [&_h2]:text-2xl [&_h2]:font-bold">
+        <slot />
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

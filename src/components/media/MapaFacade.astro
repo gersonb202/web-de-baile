@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import mapa from '@/assets/contacto/mapa.jpg';
+import { SITE } from '@/config/site';
+
+const consulta = encodeURIComponent(
+  `${SITE.address.street}, ${SITE.address.postalCode} ${SITE.address.city}`,
+);
+const embedUrl = `https://www.google.com/maps?q=${consulta}&output=embed`;
+const abrirUrl = `https://www.google.com/maps/search/?api=1&query=${consulta}`;
+---
+
+<div data-mapa data-embed={embedUrl} class="max-w-3xl">
+  <div
+    data-mapa-contenido
+    class="relative aspect-[2/1] overflow-hidden rounded-2xl bg-white shadow-md"
+  >
+    <Image
+      src={mapa}
+      alt=""
+      widths={[600, 1200]}
+      sizes="(min-width: 768px) 768px, 100vw"
+      class="size-full object-cover"
+    />
+  </div>
+  <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+    <button
+      type="button"
+      data-mapa-cargar
+      class="inline-flex min-h-11 items-center justify-center rounded-full bg-cielo px-6 py-3 font-bold text-white transition hover:bg-oceano focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano"
+    >
+      Cargar mapa interactivo
+    </button>
+    <a
+      href={abrirUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex min-h-11 items-center justify-center rounded-full border-2 border-oceano px-6 py-3 font-bold text-oceano transition hover:bg-oceano hover:text-crema focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano"
+    >
+      Abrir en Google Maps
+    </a>
+  </div>
+  <p class="mt-2 text-sm">
+    Al cargar el mapa se conectará con Google (categoría «contenido multimedia» de cookies).
+  </p>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-mapa]');
+  const contenido = root?.querySelector<HTMLElement>('[data-mapa-contenido]');
+  const boton = root?.querySelector<HTMLButtonElement>('[data-mapa-cargar]');
+
+  function cargar() {
+    const src = root?.dataset['embed'];
+    if (!root || !contenido || !src || contenido.querySelector('iframe')) return;
+    const iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.title = 'Mapa con la ubicación de la escuela';
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.className = 'absolute inset-0 size-full border-0';
+    contenido.replaceChildren(iframe);
+    boton?.setAttribute('hidden', '');
+  }
+
+  boton?.addEventListener('click', cargar);
+
+  // Si el usuario ya aceptó la categoría multimedia, se carga sin más clics.
+  const alConsentir = (event: Event) => {
+    const detail = (event as CustomEvent<{ cookie?: { categories?: string[] } }>).detail;
+    if (detail.cookie?.categories?.includes('multimedia')) cargar();
+  };
+  window.addEventListener('cc:onConsent', alConsentir);
+  window.addEventListener('cc:onChange', alConsentir);
+</script>

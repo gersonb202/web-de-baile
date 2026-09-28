@@ -1,0 +1,46 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const enlaces = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Bailes', href: '/bailes' },
+  { label: 'Horarios', href: '/horarios' },
+  { label: 'Reservar', href: '/reservar' },
+] as const;
+---
+
+<BaseLayout
+  title="Página no encontrada"
+  description="No encontramos la página que buscas. Vuelve al inicio o reserva tu clase gratuita."
+  noindex
+>
+  <Section>
+    <Container>
+      <h1 class="text-4xl font-extrabold">Vaya, esta página no existe</h1>
+      <p class="mt-4 max-w-2xl text-lg">
+        Puede que el enlace haya cambiado. Mientras tanto, ¿por qué no te animas a bailar?
+      </p>
+      <Button href="/reservar" class="mt-6">
+        Reservar clase gratis
+      </Button>
+      <nav aria-label="Enlaces útiles" class="mt-10">
+        <h2 class="text-2xl font-bold">Quizá buscabas</h2>
+        <ul class="mt-3">
+          {enlaces.map((e) => (
+            <li>
+              <a
+                href={e.href}
+                class="inline-flex min-h-11 items-center text-lg text-oceano underline underline-offset-4 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-oceano"
+              >
+                {e.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </Container>
+  </Section>
+</BaseLayout>

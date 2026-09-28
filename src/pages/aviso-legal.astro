@@ -1,0 +1,37 @@
+---
+import { SITE } from '@/config/site';
+import LegalLayout from '@/layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  title="Aviso legal"
+  description="Aviso legal e información del titular de la web conforme a la LSSI-CE."
+  href="/aviso-legal"
+>
+  <h2>Titular del sitio web</h2>
+  <p>
+    En cumplimiento de la Ley 34/2002 (LSSI-CE), se informa de que este sitio web es titularidad de
+    [Razón social], con NIF/CIF [NIF/CIF] y domicilio en {SITE.address.street},{' '}
+    {SITE.address.postalCode}
+    {SITE.address.city} ({SITE.address.region}).
+  </p>
+  <p>
+    Contacto: <a href={`mailto:${SITE.email}`}>{SITE.email}</a> · {SITE.phone}.
+  </p>
+  <p>Datos registrales: [Registro Mercantil, si procede].</p>
+  <h2>Condiciones de uso</h2>
+  <p>
+    El acceso a esta web es gratuito. El usuario se compromete a hacer un uso adecuado de sus
+    contenidos y a no emplearlos para actividades ilícitas.
+  </p>
+  <h2>Propiedad intelectual</h2>
+  <p>
+    Los contenidos, textos, imágenes y diseño de este sitio son propiedad del titular o se usan con
+    licencia. Queda prohibida su reproducción sin autorización.
+  </p>
+  <h2>Responsabilidad</h2>
+  <p>
+    El titular no se hace responsable de los daños derivados de un uso indebido de la web ni del
+    contenido de los sitios enlazados.
+  </p>
+</LegalLayout>

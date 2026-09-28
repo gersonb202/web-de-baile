@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import JsonLd from '@/components/seo/JsonLd.astro';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import Section from '@/components/ui/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE } from '@/config/site';
+import { blogPostingSchema } from '@/lib/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  cover: ImageMetadata;
+  coverAlt: string;
+  pubDate: Date;
+  updatedDate?: Date | undefined;
+}
+
+const { title, description, cover, coverAlt, pubDate, updatedDate } = Astro.props;
+const fecha = (d: Date) =>
+  d.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+const schema = blogPostingSchema({
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  image: new URL(cover.src, Astro.site).href,
+  url: new URL(Astro.url.pathname, Astro.site).href,
+});
+---
+
+<BaseLayout title={title} description={description} image={cover.src}>
+  <Breadcrumbs
+    items={[
+      { label: 'Blog', href: '/blog' },
+      { label: title, href: Astro.url.pathname },
+    ]}
+  />
+  <Section>
+    <Container>
+      <article class="max-w-3xl">
+        <h1 class="text-4xl font-extrabold">{title}</h1>
+        <p class="mt-3">
+          Por {SITE.name} · <time datetime={pubDate.toISOString()}>{fecha(pubDate)}</time>
+          {updatedDate && (
+            <>
+              · Actualizado el{' '}
+              <time datetime={updatedDate.toISOString()}>{fecha(updatedDate)}</time>
+            </>
+          )}
+        </p>
+        <Image
+          src={cover}
+          alt={coverAlt}
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 768px) 768px, 100vw"
+          loading="eager"
+          class="mt-6 aspect-[3/2] w-full rounded-2xl object-cover"
+        />
+        <div class="mt-8 space-y-4 text-lg [&_a]:text-oceano [&_a]:underline [&_a]:underline-offset-4 [&_h2]:mt-10 [&_h2]:text-2xl [&_h2]:font-bold [&_img]:rounded-2xl">
+          <slot />
+        </div>
+        <aside class="mt-12 rounded-2xl bg-white p-6 shadow-md">
+          <p class="text-xl font-bold text-oceano">¿Te animas a bailar?</p>
+          <p class="mt-1">Tu primera clase es gratis y sin compromiso.</p>
+          <Button href="/reservar" class="mt-4">
+            Reservar clase gratis
+          </Button>
+        </aside>
+      </article>
+    </Container>
+  </Section>
+  <JsonLd data={schema} />
+</BaseLayout>

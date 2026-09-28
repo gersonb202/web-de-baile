@@ -31,7 +31,8 @@ const boton =
           </button>
         </div>
       </div>
-      <ul
+      <div
+        role="group"
         tabindex="0"
         aria-label="Lista de testimonios"
         data-pista
@@ -60,7 +61,7 @@ const boton =
             </Card>
           </li>
         ))}
-      </ul>
+      </div>
     </div>
   </Container>
 </Section>
@@ -72,7 +73,8 @@ const boton =
     if (!pista || !controles) return;
     controles.hidden = false;
     const mover = (dir: 1 | -1) => {
-      const paso = pista.querySelector('li')?.getBoundingClientRect().width ?? pista.clientWidth;
+      const paso =
+        pista.querySelector('[role="group"]')?.getBoundingClientRect().width ?? pista.clientWidth;
       pista.scrollBy({ left: dir * paso, behavior: 'smooth' });
     };
     root.querySelector('[data-prev]')?.addEventListener('click', () => {

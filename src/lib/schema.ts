@@ -38,3 +38,41 @@ export function faqPageSchema(items: { pregunta: string; respuesta: string }[]) 
     })),
   };
 }
+
+export interface BlogPostData {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date | undefined;
+  image: string; // URL absoluta
+  url: string; // URL absoluta
+  author?: string;
+}
+
+export function blogPostingSchema(post: BlogPostData) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    image: post.image,
+    datePublished: post.pubDate.toISOString(),
+    dateModified: (post.updatedDate ?? post.pubDate).toISOString(),
+    author: { '@type': 'Organization', name: post.author ?? SITE.name },
+    publisher: { '@type': 'Organization', name: SITE.name },
+    mainEntityOfPage: post.url,
+  };
+}
+
+export function breadcrumbListSchema(items: { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
